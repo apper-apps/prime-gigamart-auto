@@ -1,0 +1,50 @@
+[
+  {
+    "Id": 1,
+    "name": "Electronics",
+    "slug": "electronics",
+    "icon": "Smartphone",
+    "productCount": 142,
+    "description": "Latest gadgets and electronic devices"
+  },
+  {
+    "Id": 2,
+    "name": "Clothing",
+    "slug": "clothing",
+    "icon": "Shirt",
+    "productCount": 256,
+    "description": "Fashion and apparel for all occasions"
+  },
+  {
+    "Id": 3,
+    "name": "Home & Garden",
+    "slug": "home-garden",
+    "icon": "Home",
+    "productCount": 189,
+    "description": "Everything for your home and garden"
+  },
+  {
+    "Id": 4,
+    "name": "Sports",
+    "slug": "sports",
+    "icon": "Dumbbell",
+    "productCount": 98,
+    "description": "Sports equipment and fitness gear"
+  },
+  {
+    "Id": 5,
+    "name": "Books",
+    "slug": "books",
+    "icon": "Book",
+    "productCount": 78,
+    "description": "Books and educational materials"
+  },
+  {
+    "Id": 6,
+    "name": "Beauty",
+    "slug": "beauty",
+    "icon": "Sparkles",
+    "productCount": 134,
+    "description": "Beauty and personal care products"
+  }
+]
