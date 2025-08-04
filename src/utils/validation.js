@@ -4,14 +4,13 @@ export const validateEmail = (email) => {
 };
 
 export const validatePhone = (phone) => {
-  const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
+  const phoneRegex = /^\+?[\d\s\-()]{10,}$/;
   return phoneRegex.test(phone);
 };
 
 export const validateCreditCard = (number) => {
-  // Remove spaces and dashes
-  const cleanNumber = number.replace(/[\s\-]/g, "");
-  
+// Remove spaces and dashes
+  const cleanNumber = number.replace(/[\s-]/g, "");
   // Check if it's all digits and has valid length
   if (!/^\d{13,19}$/.test(cleanNumber)) {
     return false;
