@@ -54,7 +54,7 @@ const Products = () => {
       ]);
       
       setProducts(productsData);
-      setCategories(categoriesData.map(cat => cat.name));
+      setCategories(categoriesData.map(cat => cat.Name || cat.name));
     } catch (err) {
       setError("Failed to load products. Please try again.");
       console.error("Error loading products:", err);
@@ -69,7 +69,7 @@ const Products = () => {
     // Apply search filter
     if (searchQuery) {
       filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (product.Name || product.name).toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.category.toLowerCase().includes(searchQuery.toLowerCase())
       );
@@ -96,7 +96,7 @@ const Products = () => {
         filtered.sort((a, b) => b.price - a.price);
         break;
       case "name":
-        filtered.sort((a, b) => a.name.localeCompare(b.name));
+        filtered.sort((a, b) => (a.Name || a.name).localeCompare(b.Name || b.name));
         break;
       case "newest":
         filtered.sort((a, b) => b.Id - a.Id);
@@ -241,5 +241,4 @@ const Products = () => {
     </div>
   );
 };
-
 export default Products;

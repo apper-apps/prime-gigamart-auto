@@ -30,8 +30,8 @@ const ProductCard = ({ product }) => {
         <Card hover className="group overflow-hidden h-full">
           <div className="relative overflow-hidden">
             <img
-              src={product.images[0]}
-              alt={product.name}
+              src={product.images && product.images.length > 0 ? product.images[0] : ''}
+              alt={product.Name || product.name}
               className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
             />
             
@@ -85,7 +85,7 @@ const ProductCard = ({ product }) => {
             </div>
             
             <h3 className="font-semibold text-slate-900 mb-2 group-hover:text-primary-600 transition-colors duration-200 line-clamp-2">
-              {product.name}
+              {product.Name || product.name}
             </h3>
             
             <p className="text-sm text-slate-600 mb-3 line-clamp-2">

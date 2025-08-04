@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import Button from "@/components/atoms/Button";
-import Badge from "@/components/atoms/Badge";
-import Card from "@/components/atoms/Card";
+import { ProductService } from "@/services/api/ProductService";
+import ApperIcon from "@/components/ApperIcon";
 import QuantitySelector from "@/components/molecules/QuantitySelector";
 import ProductGrid from "@/components/organisms/ProductGrid";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
-import ApperIcon from "@/components/ApperIcon";
+import Products from "@/components/pages/Products";
+import Home from "@/components/pages/Home";
+import Cart from "@/components/pages/Cart";
+import Badge from "@/components/atoms/Badge";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
 import { useCart } from "@/hooks/useCart";
-import { ProductService } from "@/services/api/ProductService";
 import { formatCurrency } from "@/utils/formatters";
 
 const ProductDetail = () => {
@@ -153,7 +156,7 @@ const ProductDetail = () => {
               </button>
             </li>
             <ApperIcon name="ChevronRight" className="h-4 w-4 text-slate-400" />
-            <li className="text-slate-900 font-medium">{product.name}</li>
+            <li className="text-slate-900 font-medium">{product.Name || product.name}</li>
           </ol>
         </nav>
 
@@ -169,14 +172,14 @@ const ProductDetail = () => {
               {/* Main Image */}
               <div className="aspect-square bg-white rounded-lg overflow-hidden shadow-card">
                 <img
-                  src={product.images[selectedImage]}
-                  alt={product.name}
+                  src={product.images && product.images.length > 0 ? product.images[selectedImage] : ''}
+                  alt={product.Name || product.name}
                   className="w-full h-full object-cover"
                 />
               </div>
 
               {/* Image Thumbnails */}
-              {product.images.length > 1 && (
+              {product.images && product.images.length > 1 && (
                 <div className="grid grid-cols-4 gap-4">
                   {product.images.map((image, index) => (
                     <button
@@ -188,7 +191,7 @@ const ProductDetail = () => {
                     >
                       <img
                         src={image}
-                        alt={`${product.name} ${index + 1}`}
+                        alt={`${product.Name || product.name} ${index + 1}`}
                         className="w-full h-full object-cover"
                       />
                     </button>
@@ -221,7 +224,7 @@ const ProductDetail = () => {
 
               {/* Title */}
               <h1 className="text-3xl lg:text-4xl font-bold font-display text-slate-900">
-                {product.name}
+                {product.Name || product.name}
               </h1>
 
               {/* Rating */}

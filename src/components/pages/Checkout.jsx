@@ -137,15 +137,20 @@ const Checkout = () => {
         subtotal: subtotal,
         tax: tax,
         shippingCost: shipping,
+        status: "confirmed"
       };
 
       const order = await OrderService.create(orderData);
       
-      // Clear cart
-      clearCart();
-      
-      toast.success("Order placed successfully!");
-      navigate(`/order-confirmation/${order.Id}`);
+      if (order) {
+        // Clear cart
+        clearCart();
+        
+        toast.success("Order placed successfully!");
+        navigate(`/order-confirmation/${order.Id}`);
+      } else {
+        toast.error("Failed to create order. Please try again.");
+      }
       
     } catch (error) {
       console.error("Payment error:", error);
@@ -415,5 +420,4 @@ const Checkout = () => {
     </div>
   );
 };
-
 export default Checkout;

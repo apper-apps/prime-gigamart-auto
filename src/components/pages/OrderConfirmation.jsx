@@ -12,7 +12,7 @@ import { formatCurrency } from "@/utils/formatters";
 import { format } from "date-fns";
 
 const OrderConfirmation = () => {
-  const { orderId } = useParams();
+const { orderId } = useParams();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -113,7 +113,7 @@ const OrderConfirmation = () => {
                   <div>
                     <h3 className="font-medium text-slate-900 mb-2">Order Details</h3>
                     <div className="space-y-1 text-sm text-slate-600">
-                      <p><span className="font-medium">Order ID:</span> {order.Id}</p>
+                      <p><span className="font-medium">Order ID:</span> {order.Name || order.Id}</p>
                       <p><span className="font-medium">Date:</span> {format(new Date(order.createdAt), "MMM d, yyyy 'at' h:mm a")}</p>
                       <p><span className="font-medium">Status:</span> 
                         <Badge variant="success" size="sm" className="ml-2">
@@ -144,11 +144,11 @@ const OrderConfirmation = () => {
             >
               <Card className="p-6">
                 <h2 className="text-xl font-semibold text-slate-900 mb-4">
-                  Order Items ({order.items.length})
+                  Order Items ({order.items ? order.items.length : 0})
                 </h2>
                 
                 <div className="space-y-4">
-                  {order.items.map((item) => (
+                  {order.items && order.items.map((item) => (
                     <div key={item.productId} className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg">
                       <img
                         src={item.image}
@@ -261,9 +261,9 @@ const OrderConfirmation = () => {
                   Payment Method
                 </h4>
                 <p className="text-sm text-slate-600 capitalize">
-                  {order.payment.method === "card" ? "Credit Card" : order.payment.method}
+                  {order.payment?.method === "card" ? "Credit Card" : order.payment?.method || "Credit Card"}
                 </p>
-                {order.payment.method === "card" && order.payment.cardNumber && (
+                {order.payment?.method === "card" && order.payment?.cardNumber && (
                   <p className="text-sm text-slate-600">
                     •••• •••• •••• {order.payment.cardNumber.slice(-4)}
                   </p>

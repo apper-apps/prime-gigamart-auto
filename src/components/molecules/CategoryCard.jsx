@@ -26,7 +26,7 @@ const CategoryCard = ({ category }) => {
           
           <div className="p-4 text-center">
             <h3 className="font-semibold text-slate-900 group-hover:text-primary-600 transition-colors duration-200">
-              {category.name}
+              {category.Name || category.name}
             </h3>
             <p className="text-sm text-slate-600 mt-1">
               {category.productCount} products

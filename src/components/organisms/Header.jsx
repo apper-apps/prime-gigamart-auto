@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 import Button from "@/components/atoms/Button";
 import SearchBar from "@/components/molecules/SearchBar";
 import CartDropdown from "@/components/molecules/CartDropdown";
 import ApperIcon from "@/components/ApperIcon";
-
+import { AuthContext } from "../../App";
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { logout } = useContext(AuthContext) || {};
+  
+  // Get user from Redux
+  const { user, isAuthenticated } = useSelector((state) => state.user);
 
   const navigation = [
     { name: "Home", href: "/", icon: "Home" },
@@ -22,6 +27,12 @@ const Header = () => {
     if (href === "/" && location.pathname === "/") return true;
     if (href !== "/" && location.pathname.startsWith(href)) return true;
     return false;
+  };
+
+  const handleLogout = () => {
+    if (logout) {
+      logout();
+    }
   };
 
   return (
@@ -76,6 +87,23 @@ const Header = () => {
             
             <CartDropdown />
 
+            {/* User Menu */}
+            {isAuthenticated && user && (
+              <div className="hidden md:flex items-center space-x-2">
+                <span className="text-sm text-slate-600">
+                  Hello, {user.firstName || user.name || 'User'}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleLogout}
+                  className="p-2"
+                >
+                  <ApperIcon name="LogOut" className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+
             {/* Mobile Menu Toggle */}
             <div className="md:hidden">
               <Button
@@ -126,6 +154,22 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
+              
+              {/* Mobile User Menu */}
+              {isAuthenticated && user && (
+                <div className="border-t border-slate-200 pt-2 mt-2">
+                  <div className="px-4 py-2 text-sm text-slate-600">
+                    Hello, {user.firstName || user.name || 'User'}
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 w-full transition-colors duration-200"
+                  >
+                    <ApperIcon name="LogOut" className="h-5 w-5" />
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
